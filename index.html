@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Bin2Dec</title>
+
+    <style>
+        /* Basic page styling */
+        body {
+            padding: 3em;
+        }
+
+        input {
+            margin-top: 1em;
+        }
+
+        /* Validation styling */
+        input:invalid+small:after {
+            content: 'Binary number must only contain 0s or 1s and be up to 8 digits in length.';
+            color: red;
+            padding-left: 5px;
+        }
+
+        input:valid+small:after {
+            content: '✓';
+            color: green;
+            padding-left: 5px;
+        }
+        
+    </style>
+
+    <script>
+        function binaryToDecimal() {
+            let binary = document.getElementById('binary').value;
+            let regex = RegExp(document.getElementById('binary').pattern);
+            let decimal = 0;
+
+            // Check that the input matches the field input regex
+            if (regex.test(binary)) {
+
+                // Convert binary to decimal
+                for (let i = 0; i < binary.length; i++) {
+                    decimal += parseInt(binary[i]) * Math.pow(2 , binary.length - 1 - i);
+                }
+            }
+
+            // Display output
+            document.getElementById('decimal').innerHTML = decimal;
+        }
+    </script>
+
+</head>
+<body>
+
+    <header>
+        <h1>Bin2Dec</h1>
+        <h4>Bin2Dec allows the user to enter strings of up to 8 binary digits, 0's and 1's, in any sequence and then displays its decimal equivalent.</h4>
+    </header>
+
+    <main>
+        <p>Enter up to 8 binary digits to see the decimal equivalent</p>
+
+        <label for="binary">Please enter a binary number:</label>
+        <br>
+        <input type="text" id="binary" name="binary" pattern="^[0-1]{1,8}$" maxlength="8" oninput="binaryToDecimal()">
+        <small class="validationText"></small>
+        
+        <p>Decimal equivalent: <span id="decimal">0</span></p>
+        <br>
+    </main>
+    
+    <footer>
+        <small>Created by Mark Morcom | Feb. 2020 | <a href="https://github.com/mrk-m/Bin2Dec-App">Github Repo</a></small>
+    </footer>
+
+</body>
+</html>
